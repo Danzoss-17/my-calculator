@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blessing's Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e0f2e6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .calculator {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 280px;
+    }
+
+    .display {
+      width: 100%;
+      height: 50px;
+      font-size: 24px;
+      margin-bottom: 5px;
+      padding: 10px;
+      text-align: right;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      height: 18px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .buttons button {
+      height: 60px;
+      font-size: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #e3b2f2;
+      transition: background-color 0.3s;
+    }
+
+    .buttons button:hover {
+      background-color: #4dd0e1;
+    }
+
+    .buttons button.operator {
+      background-color: #4dd0e1;
+    }
+
+    .buttons button.equal {
+      background-color: #00796b;
+      color: white;
+      grid-column: span 2;
+    }
+
+    .buttons button.clear {
+      background-color: #ff8a80;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <input type="text" id="display" class="display" readonly>
+    <div id="error" class="error-message"></div>
+
+    <div class="buttons">
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button class="operator" onclick="append('/')">÷</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button class="operator" onclick="append('*')">×</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button class="operator" onclick="append('-')">−</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button class="operator" onclick="append('+')">+</button>
+
+      <button class="equal" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    function append(value) {
+      document.getElementById("display").value += value;
+      document.getElementById("error").textContent = ''; // clear error if typing again
+    }
+
+    function clearDisplay() {
+      document.getElementById("display").value = '';
+      document.getElementById("error").textContent = '';
+    }
+
+    function calculate() {
+      const display = document.getElementById("display");
+      const error = document.getElementById("error");
+      try {
+        display.value = eval(display.value);
+        error.textContent = '';
+      } catch (e) {
+        error.textContent = 'Invalid input. Try again';
+      }
+    }
+  </script>
+
+</body>
+</html>
